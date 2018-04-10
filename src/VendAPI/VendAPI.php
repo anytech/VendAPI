@@ -17,7 +17,7 @@
 namespace VendAPI;
 
 spl_autoload_register(function ($class) {
-    list($namespace, $classname) = explode('\\', $class);
+    list($namespace, $classname) = array_pad(explode('\\', $class, 2), -2, null);
     if ($namespace == 'VendAPI') {
         include rtrim(__DIR__, '/').'/'.$classname . '.php';
     }
@@ -106,6 +106,24 @@ class VendAPI
         }
 
         return $this->apiGetProducts($path);
+    }
+	
+	/**
+     * Get all products pages
+     *
+	 * @param array $options .. optional
+     * @return string
+     */
+    public function getProductsPages($options = array())
+    {
+		$path = '';
+        if (count($options)) {
+            foreach ($options as $k => $v) {
+                $path .= '/'.$k.'/'.$v;
+            }
+        }
+		
+        return $this->apiGetProductsPages($path);
     }
 
     /**
@@ -208,12 +226,22 @@ class VendAPI
         if (!isset($result->products) || !is_array($result->products)) {
             throw new Exception("Error: Unexpected result for request");
         }
-        $products = array();
+		        
+		$products = array();
         foreach ($result->products as $product) {
             $products[] = new VendProduct($product, $this);
         }
 
         return $products;
+    }
+	private function apiGetProductsPages($path)
+    {
+        $result = $this->_request('/api/products'.$path);
+        if (!isset($result->products) || !is_array($result->products)) {
+            throw new Exception("Error: Unexpected result for request");
+        }
+		  
+        return $result->pagination;
     }
     private function apiGetCustomers($path)
     {
