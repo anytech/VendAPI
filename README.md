@@ -6,7 +6,7 @@ is at a really basic state but it does exactly what I need at the
 moment. Feel free to add any issues/bugs and send me any pull
 requests.
 
-NB: Updated to use oauth for July 2015 deprecation, if you have sample code for handling oauth authorization and token refreshes submit a pull requst
+NB: Updating to API 2.0
 
 
 ## Installation and Basic Usage
