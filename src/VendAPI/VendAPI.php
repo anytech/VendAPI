@@ -79,6 +79,8 @@ class VendAPI
 
     }
 
+	//************************************* API 1.0 Functions ********************************************************************
+	
     public function getCustomers($options = array())
     {
         $path = '';
@@ -243,6 +245,7 @@ class VendAPI
 		  
         return $result->pagination;
     }
+		
     private function apiGetCustomers($path)
     {
         $result = $this->_request('/api/customers'.$path);
@@ -321,7 +324,8 @@ class VendAPI
 
         return new VendSale($result->register_sale, $this);
     }
-    /**
+    
+	/**
      * make request to the vend api
      *
      * @param string  $path   the url to request
@@ -342,7 +346,7 @@ class VendAPI
             // reset to a get
             $rawresult = $this->requestr->get($path);
         }
-
+	
         $result = json_decode($rawresult);
         if ($result === null) {
             throw new Exception("Error: Recieved null result from API");
@@ -394,8 +398,8 @@ class VendAPI
 
         return $result;
     }
-
-    /**
+	
+	/**
      * merge two objects when depaginating results
      *
      * @param object $obj1 original object to overwrite / merge
@@ -414,6 +418,92 @@ class VendAPI
             }
         }
         return $obj3;
+    }
+	
+	//************************************* API 2.0 Functions ********************************************************************
+	
+	/**
+     * Get all products 2.0
+     *
+	 * @param array $options .. optional
+     * @return string
+     */
+    public function getProducts20($options = array(),$single = null)
+    {
+		if(!isset($single)){
+			$path = '?';
+			if (count($options)) {
+				foreach ($options as $k => $v) {
+					$path .= '&'.$k.'='.$v;
+				}
+			}
+		} else {
+			$path = $single;
+		}
+        return $this->apiGetProducts20($path);
+    }
+	
+	private function apiGetProducts20($path)
+    {
+        $result = $this->_request20('/api/2.0/products/'.$path);
+        if (!isset($result->data)) {
+            throw new Exception("Error: Unexpected result for request");
+        }		  
+        return $result;
+    }
+	
+	 /**
+     * Get a single product by id 2.0
+     *
+     * @param string $id id of the product to get
+     *
+     * @return object
+     */
+    public function getProduct20($id)
+    {
+        $result = $this->getProducts20(null,$id);
+        return $result;
+    }
+	
+	
+	
+	
+	/**
+     * make request to the vend api version 2.0
+     *
+     * @param string  $path   the url to request
+     * @param array   $data   optional - if sending a post request, send fields through here
+     * @param boolean $depage do you want to grab and merge page results? .. will only depage on first page
+     *
+     * @return array result based on request
+     */
+    private function _request20($path, $data = null)
+    {
+        if ($data !== null) {
+            // setup for a post
+
+            $rawresult = $this->requestr->post($path, json_encode($data));
+
+        } else {
+            // reset to a get
+            $rawresult = $this->requestr->get($path);
+        }
+			
+        $result = json_decode($rawresult);
+        if ($result === null) {
+            throw new Exception("Error: Recieved null result from API");
+        }
+
+        if ($result && isset($result->error)) {
+            throw new Exception($result->error);
+        }
+
+        if ($this->debug) {
+            $this->last_result_raw = $rawresult;
+            $this->last_result = $result;
+        }
+
+        return $result;
     }
 }
 
