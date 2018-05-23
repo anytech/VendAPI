@@ -443,16 +443,7 @@ class VendAPI
         return $this->apiGetProducts20($path);
     }
 	
-	private function apiGetProducts20($path)
-    {
-        $result = $this->_request20('/api/2.0/products/'.$path);
-        if (!isset($result->data)) {
-            throw new Exception("Error: Unexpected result for request");
-        }		  
-        return $result;
-    }
-	
-	 /**
+	/**
      * Get a single product by id 2.0
      *
      * @param string $id id of the product to get
@@ -465,7 +456,111 @@ class VendAPI
         return $result;
     }
 	
+	/**
+     * Get all customers 2.0
+     *
+     * @return object
+     */
+    public function getCustomers20($options = array(),$single = null)
+    {
+		if(!isset($single)){
+			$path = '?';
+			if (count($options)) {
+				foreach ($options as $k => $v) {
+					$path .= '&'.$k.'='.$v;
+				}
+			}
+		} else {
+			$path = $single;
+		}
+        return $this->apiGetCustomers20($path);
+    }
 	
+	/**
+     * Get all brands 2.0
+     *
+	 * @param array $options .. optional
+     * @return string
+     */
+    public function getBrands20($options = array(),$single = null)
+    {
+		if(!isset($single)){
+			$path = '?';
+			if (count($options)) {
+				foreach ($options as $k => $v) {
+					$path .= '&'.$k.'='.$v;
+				}
+			}
+		} else {
+			$path = $single;
+		}
+        return $this->apiGetBrands20($path);
+    }
+	
+
+	/**
+     * Get inventories 2.0
+     *
+     */
+	public function getInventories($options = array())
+    {
+		$path = '?';
+			if (count($options)) {
+				foreach ($options as $k => $v) {
+					$path .= '&'.$k.'='.$v;
+				}
+			}
+         $result = $this->_request20('/api/2.0/inventory'.$path);
+        if (!isset($result->data)) {
+            throw new Exception("Error: Unexpected result for request");
+        }		  
+        return $result;
+    }
+	
+	/**
+     * Get a single product inventory by id 2.0
+     *
+     * @param string $id id of the product to get
+     *
+     * @return object
+     */
+	public function getInventory($id)
+    {
+        $result = $this->_request20('/api/2.0/products/'.$id.'/inventory');
+        if (!isset($result->data)) {
+            throw new Exception("Error: Unexpected result for request");
+        }		  
+        return $result;
+    }
+	
+	
+	//API Requests 
+	private function apiGetProducts20($path)
+    {
+        $result = $this->_request20('/api/2.0/products/'.$path);
+        if (!isset($result->data)) {
+            throw new Exception("Error: Unexpected result for request");
+        }		  
+        return $result;
+    }
+	
+	private function apiGetCustomers20($path)
+    {
+        $result = $this->_request20('/api/2.0/customers/'.$path);
+        if (!isset($result->data)) {
+            throw new Exception("Error: Unexpected result for request");
+        }		  
+        return $result;
+    }
+	
+	private function apiGetBrands20($path)
+    {
+        $result = $this->_request20('/api/2.0/brands/'.$path);
+        if (!isset($result->data)) {
+            throw new Exception("Error: Unexpected result for request");
+        }		  
+        return $result;
+    }
 	
 	
 	/**
