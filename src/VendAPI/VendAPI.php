@@ -477,6 +477,16 @@ class VendAPI
     }
 	
 	/**
+     * Save customer object to vend
+     * @param object $cust
+     * @return object
+     */
+    public function saveCustomer20($options = array(),$id)
+    {
+        return $this->apisaveCustomer20($options,$id);
+    }
+	
+	/**
      * Get all brands 2.0
      *
 	 * @param array $options .. optional
@@ -562,6 +572,15 @@ class VendAPI
         return $result;
     }
 	
+	private function apisaveCustomer20($options,$id)
+    {
+        $result = $this->_request20('/api/2.0/customers/'.$id,$options,1);		
+        if (!isset($result->data)) {
+          throw new Exception("Error: Unexpected result for request");
+        }		  
+        return $result;
+    }
+	
 	
 	/**
      * make request to the vend api version 2.0
@@ -572,18 +591,22 @@ class VendAPI
      *
      * @return array result based on request
      */
-    private function _request20($path, $data = null)
+    private function _request20($path, $data = null,$put = null)
     {
-        if ($data !== null) {
+		//return json_encode($data);
+		if ($data !== null && $put!==null) {
             // setup for a post
+            $rawresult = $this->requestr->put($path, json_encode($data));
 
+        } elseif ($data !== null && $put==null) {
+            // setup for a post
             $rawresult = $this->requestr->post($path, json_encode($data));
 
         } else {
             // reset to a get
             $rawresult = $this->requestr->get($path);
         }
-			
+				
         $result = json_decode($rawresult);
         if ($result === null) {
             throw new Exception("Error: Recieved null result from API");

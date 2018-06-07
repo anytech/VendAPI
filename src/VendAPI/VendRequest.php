@@ -75,7 +75,7 @@ class VendRequest
             curl_setopt($this->curl, $name, $value);
         }
     }
-    public function post($path, $rawdata)
+	public function post($path, $rawdata)
     {
         $this->setOpt(
             array(
@@ -86,6 +86,17 @@ class VendRequest
         );
         $this->posted = $rawdata;
         return $this->_request($path, 'post');
+    }
+    public function put($path, $rawdata)
+    {
+        $this->setOpt(
+            array(
+                CURLOPT_POSTFIELDS => $rawdata,
+                CURLOPT_CUSTOMREQUEST => 'PUT'
+            )
+        );
+        $this->posted = $rawdata;
+        return $this->_request($path, 'put');
     }
     public function get($path)
     {
