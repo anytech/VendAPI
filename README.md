@@ -34,6 +34,9 @@ require 'path/to/src/VendApi/VendApi.php';
 
 $vend = new VendAPI\VendAPI('https://shopname.vendhq.com','VEND_TOKEN_TYPE','VEND_ACCESS_TOKEN');
 $products = $vend->getProducts();
+
+//2.0 Api
+$products = $vend->getProducts20();
 ```
 
 ## API Usage
@@ -43,6 +46,9 @@ $products = $vend->getProducts();
 ```php
 $vend = new VendAPI\VendAPI('https://shopname.vendhq.com','VEND_TOKEN_TYPE','VEND_ACCESS_TOKEN');
 $products = $vend->getProducts();
+
+//2.0 Api
+$products = $vend->getProducts20();
 ```
 
 *NB* this will only grab the first 20 or so results. To grab all results set `$vend->automatic_depage` to `true`
