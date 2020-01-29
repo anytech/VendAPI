@@ -487,6 +487,16 @@ class VendAPI
     }
 	
 	/**
+     * Save customer object to vend
+     * @param object $cust
+     * @return object
+     */
+    public function addCustomer20($options = array())
+    {
+        return $this->apiaddCustomer20($options);
+    }
+	
+	/**
      * Get all brands 2.0
      *
 	 * @param array $options .. optional
@@ -528,6 +538,27 @@ class VendAPI
         return $this->apiGetPricebooks20($path);
     }
 	
+	/**
+     * Get all Pricebooks book 2.0
+     *
+	 * @param array $options .. optional
+     * @return string
+     */
+    public function getPricebooksbook20($options = array(),$single = null)
+    {
+		if(!isset($single)){
+			$path = '?';
+			if (count($options)) {
+				foreach ($options as $k => $v) {
+					$path .= '&'.$k.'='.$v;
+				}
+			}
+		} else {
+			$path = $single;
+		}
+        return $this->apiGetPricebooksbook20($path);
+    }
+	
 
 	/**
      * Get inventories 2.0
@@ -559,9 +590,11 @@ class VendAPI
     {
         $result = $this->_request20('/api/2.0/products/'.$id.'/inventory');
         if (!isset($result->data)) {
-            throw new Exception("Error: Unexpected result for request");
-        }		  
-        return $result;
+			echo 'Composite or Deleted Product?';
+            //throw new Exception("Error: Unexpected result for request");
+        } else {		  
+        	return $result;
+		}
     }
 	
 	
@@ -602,12 +635,30 @@ class VendAPI
         return $result;
     }
 	
+	private function apiGetPricebooksbook20($path)
+    {
+        $result = $this->_request20('/api/2.0/price_books/'.$path);
+        if (!isset($result->data)) {
+            //throw new Exception("Error: Unexpected result for request");
+        }		  
+        return $result;
+    }
+	
 	private function apisaveCustomer20($options,$id)
     {
         $result = $this->_request20('/api/2.0/customers/'.$id,$options,1);		
         if (!isset($result->data)) {
           throw new Exception("Error: Unexpected result for request");
         }		  
+        return $result;
+    }
+	
+	private function apiaddCustomer20($options)
+    {
+        $result = $this->_request20('/api/2.0/customers',$options,null);		
+        /*if (!isset($result->data)) {
+          throw new Exception("Error: Unexpected result for request");
+        }*/		  
         return $result;
     }
 	
