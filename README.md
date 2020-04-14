@@ -18,7 +18,7 @@ The easiest way to install Vend API is via [composer](http://getcomposer.org/). 
 ```json
 {
     "require": {
-        "vendapi/vendapi": "dev-master"
+        "anytech/vendapi": "dev-master"
     }
 }
 ```
@@ -26,11 +26,11 @@ The easiest way to install Vend API is via [composer](http://getcomposer.org/). 
 ### Without Composer
 
 
-Why are you not using [composer](http://getcomposer.org/)? Download and extract the [zip file](https://github.com/brucealdridge/VendAPI/archive/master.zip) from the repo into your project path somewhere.
+Why are you not using [composer](http://getcomposer.org/)? Download and extract the [zip file](https://github.com/anytech/VendAPI/archive/master.zip) from the repo into your project path somewhere.
 
 ```php
 <?php
-require 'path/to/src/VendApi/VendApi.php';
+require 'path/to/src/Anytech/VendApi.php';
 
 $vend = new VendAPI\VendAPI('https://shopname.vendhq.com','VEND_TOKEN_TYPE','VEND_ACCESS_TOKEN');
 $products = $vend->getProducts();
