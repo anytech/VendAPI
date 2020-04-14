@@ -1,12 +1,17 @@
 {
-    "name": "vendapi/vendapi",
+    "name": "anytech/vendapi",
     "type": "library",
     "description": "Vend API class",
     "keywords": ["shopping","shop", "e-commerce"],
-    "homepage": "http://github.com/brucealdridge/vendapi",
+    "homepage": "http://github.com/anytech/vendapi",
     "license": "MIT",
 
     "authors": [
+        {
+            "name": "Kayne Middleton",
+            "email": "kayne@anytech.co.nz",
+            "role": "Developer"
+        },
         {
             "name": "Bruce Aldridge",
             "email": "bruce@incode.co.nz",
