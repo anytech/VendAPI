@@ -481,7 +481,7 @@ class VendAPI
      * @param object $cust
      * @return object
      */
-    public function saveCustomer20($options = array(),$id)
+    public function saveCustomer20($id,$options = array())
     {
         return $this->apisaveCustomer20($options,$id);
     }
