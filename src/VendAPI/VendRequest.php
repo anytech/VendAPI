@@ -25,6 +25,8 @@ class VendRequest
     private $http_header;
     private $http_body;
     private $url;
+    private $posted;
+    private $response;
 
     public $http_code;
 
