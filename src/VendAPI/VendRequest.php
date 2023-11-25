@@ -24,6 +24,7 @@ class VendRequest
     private $cookie;
     private $http_header;
     private $http_body;
+    private $url;
 
     public $http_code;
 
