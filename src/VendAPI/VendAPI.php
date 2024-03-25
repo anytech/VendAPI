@@ -586,7 +586,7 @@ class VendAPI
      *
      * @return object
      */
-	public function getInventory($id)
+	public function getInventory20($id)
     {
         $result = $this->_request20('/api/2.0/products/'.$id.'/inventory');
         if (!isset($result->data)) {
