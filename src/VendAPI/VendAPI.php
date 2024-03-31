@@ -558,6 +558,27 @@ class VendAPI
 		}
         return $this->apiGetPricebooksbook20($path);
     }
+
+     /**
+     * Get all Promotions 2.0
+     *
+     * @param array $options .. optional
+     * @return string
+     */
+    public function getPromotions20($options = array(),$single = null)
+    {
+		if(!isset($single)){
+			$path = '?';
+			if (count($options)) {
+				foreach ($options as $k => $v) {
+					$path .= '&'.$k.'='.$v;
+				}
+			}
+		} else {
+			$path = $single;
+		}
+        return $this->apiGetPromotions20($path);
+    }
 	
 
 	/**
@@ -629,6 +650,15 @@ class VendAPI
 	private function apiGetPricebooks20($path)
     {
         $result = $this->_request20('/api/2.0/price_book_products/'.$path);
+        if (!isset($result->data)) {
+            throw new Exception("Error: Unexpected result for request");
+        }		  
+        return $result;
+    }
+
+	private function apiGetPromotions20($path)
+    {
+        $result = $this->_request20('/api/2.0/promotions/'.$path);
         if (!isset($result->data)) {
             throw new Exception("Error: Unexpected result for request");
         }		  
