@@ -575,7 +575,7 @@ class VendAPI
 				}
 			}
 		} else {
-			$path = $single;
+			$path = '/'.$single;
 		}
         return $this->apiGetPromotions20($path);
     }
@@ -658,7 +658,7 @@ class VendAPI
 
 	private function apiGetPromotions20($path)
     {
-        $result = $this->_request20('/api/2.0/promotions/'.$path);
+        $result = $this->_request20('/api/2.0/promotions'.$path);
         if (!isset($result->data)) {
             throw new Exception("Error: Unexpected result for request");
         }		  
