@@ -579,6 +579,17 @@ class VendAPI
 		}
         return $this->apiGetPromotions20($path);
     }
+
+	/**
+     * Get Promo Codes 2.0
+     *
+     * @param string $promoID
+     * @return string
+     */
+    public function getPromoCodes20($promoID)
+    {
+        return $this->apiGetPromotions20('/promotions/'.$promoID.'/promocodes');
+    }
 	
 
 	/**
