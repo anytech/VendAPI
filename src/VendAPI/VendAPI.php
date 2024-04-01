@@ -588,7 +588,7 @@ class VendAPI
      */
     public function getPromoCodes20($promoID)
     {
-        return $this->apiGetPromotions20('/promotions/'.$promoID.'/promocodes');
+        return $this->apiGetPromotions20('/'.$promoID.'/promocodes');
     }
 	
 
