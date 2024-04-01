@@ -584,7 +584,7 @@ class VendAPI
      * Get Promo Codes 2.0
      *
      * @param string $promoID
-     * @return string
+     * @return array
      */
     public function getPromoCodes20($promoID)
     {
