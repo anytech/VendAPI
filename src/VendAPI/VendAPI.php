@@ -516,6 +516,17 @@ class VendAPI
 		}
         return $this->apiGetBrands20($path);
     }
+
+    /**
+     * Get all categories 2.0
+     *
+	 * @param array $options .. optional
+     * @return string
+     */
+    public function getCategories20()
+    {
+        return $this->apiGetCategories20();
+    }
 	
 	/**
      * Get all Pricebooks 2.0
@@ -652,6 +663,15 @@ class VendAPI
 	private function apiGetBrands20($path)
     {
         $result = $this->_request20('/api/2.0/brands/'.$path);
+        if (!isset($result->data)) {
+            throw new Exception("Error: Unexpected result for request");
+        }		  
+        return $result;
+    }
+
+    private function apiGetCategories20()
+    {
+        $result = $this->_request20('/api/2.0/product_categories');
         if (!isset($result->data)) {
             throw new Exception("Error: Unexpected result for request");
         }		  
