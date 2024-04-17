@@ -731,7 +731,7 @@ class VendAPI
      * @param array   $data   optional - if sending a post request, send fields through here
      * @param boolean $depage do you want to grab and merge page results? .. will only depage on first page
      *
-     * @return array result based on request
+     * @return object result based on request
      */
     private function _request20($path, $data = null,$put = null)
     {
