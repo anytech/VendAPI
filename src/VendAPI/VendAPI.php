@@ -496,10 +496,10 @@ class VendAPI
         return $this->apiaddCustomer20($options);
     }
 	
-	/**
+     /**
      * Get all brands 2.0
      *
-	 * @param array $options .. optional
+     * @param array $options .. optional
      * @return object
      */
     public function getBrands20($options = array(),$single = null)
@@ -515,6 +515,27 @@ class VendAPI
 			$path = $single;
 		}
         return $this->apiGetBrands20($path);
+    }
+
+    /**
+     * Get all tags 2.0
+     *
+     * @param array $options .. optional
+     * @return object
+     */
+    public function getTags20($options = array(),$single = null)
+    {
+		if(!isset($single)){
+			$path = '?';
+			if (count($options)) {
+				foreach ($options as $k => $v) {
+					$path .= '&'.$k.'='.$v;
+				}
+			}
+		} else {
+			$path = $single;
+		}
+        return $this->apiGetTags20($path);
     }
 
     /**
@@ -663,6 +684,15 @@ class VendAPI
 	private function apiGetBrands20($path)
     {
         $result = $this->_request20('/api/2.0/brands/'.$path);
+        if (!isset($result->data)) {
+            throw new Exception("Error: Unexpected result for request");
+        }		  
+        return $result;
+    }
+
+    private function apiGetTags20($path)
+    {
+        $result = $this->_request20('/api/2.0/tags/'.$path);
         if (!isset($result->data)) {
             throw new Exception("Error: Unexpected result for request");
         }		  
