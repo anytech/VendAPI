@@ -500,7 +500,7 @@ class VendAPI
      * Get all brands 2.0
      *
 	 * @param array $options .. optional
-     * @return string
+     * @return object
      */
     public function getBrands20($options = array(),$single = null)
     {
