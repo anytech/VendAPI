@@ -196,11 +196,14 @@ class VendAPI
      *
      * @return object
      */
-    public function getSale($id)
-    {
-        $result = $this->apiGetSales('/'.$id);
-        return is_array($result) && isset($result[0]) ? $result[0] : new VendSale(null, $this);
+    public function getSale($id) {
+	$result = $this->_request20('/api/2.0/sales/' . $id);
+	if (!isset($result->data)) {
+	        throw new \Exception("Error: Unexpected result for request");
+	}
+	return new VendSale($result->data, $this);
     }
+	
     public function getProductsSince($date)
     {
         $result = $this->getProducts(array('since' => $date));
