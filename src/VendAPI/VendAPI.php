@@ -261,12 +261,12 @@ class VendAPI
     }
     private function apiGetSales($path)
     {
-        $result = $this->_request('/api/register_sales'.$path);
-        if (!isset($result->register_sales) || !is_array($result->register_sales)) {
+        $result = $this->_request20('/api/2.0/sales'.$path);
+        if (!isset($result->data) || !is_array($result->data)) {
             throw new Exception("Error: Unexpected result for request");
         }
         $sales = array();
-        foreach ($result->register_sales as $s) {
+        foreach ($result->data as $s) {
             $sales[] = new VendSale($s, $this);
         }
 
