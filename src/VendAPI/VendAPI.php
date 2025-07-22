@@ -755,6 +755,18 @@ class VendAPI
         }*/		  
         return $result;
     }
+
+public function updateSaleStatus($saleId, $status) {
+    // Valid statuses: PARKED, CLOSED, VOID
+    $data = [
+        'status' => strtoupper($status)
+    ];
+    // The API wants data as an array, sent as JSON
+    $result = $this->_request20('/api/2.0/sales/' . $saleId, $data, true);
+
+    // Check result for errors (already handled by _request20)
+    return $result;
+}
 	
 	
 	/**
