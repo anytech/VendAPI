@@ -756,8 +756,17 @@ class VendAPI
         return $result;
     }
 
-	public function putRequest($path, $data) {
-	    return $this->_request($path, $data, true);
+	public function putRequest($path, $data = null) {
+	    // This will call the underlying Curl wrapper’s put() method.
+	    $rawresult = $this->requestr->put($path, json_encode($data));
+	    $result = json_decode($rawresult);
+	    if ($result === null) {
+	        throw new Exception("Error: Received null result from API");
+	    }
+	    if ($this->requestr->http_code >= 400) {
+	        throw new Exception("Error: Unexpected HTTP ".$this->requestr->http_code." result from API: " . $rawresult);
+	    }
+	    return $result;
 	}
 		
 	
