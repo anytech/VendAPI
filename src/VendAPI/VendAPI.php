@@ -768,6 +768,18 @@ class VendAPI
 	    }
 	    return $result;
 	}
+
+	public function postRequest($path, $data = null) {
+	    $rawresult = $this->requestr->post($path, json_encode($data));
+	    $result = json_decode($rawresult);
+	    if ($result === null) {
+	        throw new Exception("Error: Received null result from API");
+	    }
+	    if ($this->requestr->http_code >= 400) {
+	        throw new Exception("Error: Unexpected HTTP ".$this->requestr->http_code." result from API: " . $rawresult);
+	    }
+	    return $result;
+	}
 		
 	/**
 	 * Update product name and/or description in Lightspeed
