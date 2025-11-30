@@ -769,6 +769,16 @@ class VendAPI
 	    return $result;
 	}
 		
+	/**
+	 * Update product name and/or description in Lightspeed
+	 * @param string $productId Lightspeed product UUID
+	 * @param array $data ['name' => '...', 'description' => '...']
+	 * @return object API response
+	 */
+	public function updateProduct20($productId, array $data) {
+	    return $this->putRequest('/api/2.0/products/' . $productId, $data);
+	}
+
 	
 	/**
      * make request to the vend api version 2.0
