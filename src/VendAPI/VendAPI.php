@@ -790,13 +790,19 @@ class VendAPI
 	}
 
 	/**
-	 * Update category name in Lightspeed
+	 * Update category name in Lightspeed using bulk endpoint
 	 * @param string $categoryId Lightspeed category UUID
 	 * @param array $data ['name' => '...']
 	 * @return object API response
 	 */
 	public function updateCategory20($categoryId, array $data) {
-	    return $this->putRequest('/api/2.0/product_categories/' . $categoryId, $data);
+	    // Lightspeed API 2.0 requires bulk endpoint for category updates
+	    $payload = [
+	        'categories' => [
+	            array_merge(['id' => $categoryId], $data)
+	        ]
+	    ];
+	    return $this->postRequest('/api/2.0/product_categories/bulk', $payload);
 	}
 	
 	/**
