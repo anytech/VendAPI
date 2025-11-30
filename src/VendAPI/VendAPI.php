@@ -779,6 +779,16 @@ class VendAPI
 	    return $this->putRequest('/api/2.0/products/' . $productId, $data);
 	}
 
+	/**
+	 * Update brand name in Lightspeed
+	 * @param string $brandId Lightspeed brand UUID
+	 * @param array $data ['name' => '...']
+	 * @return object API response
+	 */
+	public function updateBrand20($brandId, array $data) {
+	    return $this->putRequest('/api/2.0/brands/' . $brandId, $data);
+	}
+
 	
 	/**
      * make request to the vend api version 2.0
