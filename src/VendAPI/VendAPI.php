@@ -789,6 +789,15 @@ class VendAPI
 	    return $this->putRequest('/api/2.0/brands/' . $brandId, $data);
 	}
 
+	/**
+	 * Update category name in Lightspeed
+	 * @param string $categoryId Lightspeed category UUID
+	 * @param array $data ['name' => '...']
+	 * @return object API response
+	 */
+	public function updateCategory20($categoryId, array $data) {
+	    return $this->putRequest('/api/2.0/product_categories/' . $categoryId, $data);
+	}
 	
 	/**
      * make request to the vend api version 2.0
