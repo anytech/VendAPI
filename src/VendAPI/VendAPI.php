@@ -788,7 +788,12 @@ class VendAPI
 	 * @return object API response
 	 */
 	public function updateProduct20($productId, array $data) {
-	    return $this->putRequest('/api/2.0/products/' . $productId, $data);
+	    // Lightspeed API 2.1 requires data in 'common' section for name/description
+	    // as these are shared across all variants in a product family
+	    $payload = [
+	        'common' => $data
+	    ];
+	    return $this->putRequest('/api/2.1/products/' . $productId, $payload);
 	}
 
 	/**
